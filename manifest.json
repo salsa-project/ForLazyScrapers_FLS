@@ -1,8 +1,8 @@
 {
     // Comments are accepted in the manifest, even though it is JSON.
     "manifest_version": 3,
-    "name": "Chrome Extension v3 Starter",
-    "description": "A minimal example of a chrome extension using manifest v3",
+    "name": "HelpScraplease_HSP",
+    "description": "Scrap helper that make getting element identifier/route in just 2 steps , assign token and auto-find the token",
     "version": "0.0.1",
     "icons": {
         "16": "logo/logo-16.png",
@@ -10,13 +10,21 @@
         "128": "logo/logo-128.png"
     },
     "options_page": "settings/settings.html",
+    "permissions": [
+        "storage", 
+        "declarativeContent", 
+        "activeTab", 
+        "scripting", 
+        "tabs",
+        "downloads"
+    ],
     "action": {
-        "default_title": "Chrome Addon v3 Starter",
+        "default_title": "HelpScraplease_HSP",
         "default_popup": "popup/popup.html"
     },
-    "permissions": [],
     "host_permissions": [
-        "*://*/*"
+        "https://chat.openai.com/*",
+        "https://bard.google.com/*"
     ],
     "background": {
         "service_worker": "service-worker.js"

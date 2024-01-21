@@ -31,6 +31,6 @@
     },
     "content_scripts": [{
         "js": ["foreground.js"],
-        "matches": ["https://github.com/*"]
+        "matches": ["https://chat.openai.com/*"]
     }]
 }

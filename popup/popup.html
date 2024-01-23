@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="popup.css">
-    <title>HelpScraplease_HSP: popup</title>
+    <title>ForLazyScrapers_FLS: Popup</title>
 </head>
 <body>
     
@@ -17,38 +17,51 @@
         </div>
         <div id="generator">
             <p class="titles">Token Generator!</p>
-            <button id="generateBtn">Generate</button>
+            <button class="generateBtn">Generate</button>
             <div id="tokenDisplay">
-                <p id="token">Press "Generate" above.. </p>
+                <p id="token">************</p>
                 <div class="copyBtn">
-                    <img src="./img/image (1).png" alt="copy_icone">
+                    <img src="./img/copy_icone.png" alt="copy_icone">
+                    <p class="copied hide">Copied!</p>
                 </div>
             </div>
         </div>
         <div id="selectors">
             <p class="titles">Selectors Result</p>
-            <div id="selectorsWrapper">
+            
+            <button  class="generateBtn generateSelectors">Generate</button>
+
+            <div id="selectorsWrapper" class="hide">
                 <div class="selectorsDisplay">
                     <p class="selector">Press "Generate" above.. </p>
                     <div class="copyBtn">
-                        <img src="./img/image (1).png" alt="copy_icone">
+                        <img src="./img/copy_icone.png" alt="copy_icone">
                     </div>
                 </div>
                 <div class="selectorsDisplay">
                     <p class="selector">Press "Generate" above.. </p>
                     <div class="copyBtn">
-                        <img src="./img/image (1).png" alt="copy_icone">
+                        <img src="./img/copy_icone.png" alt="copy_icone">
                     </div>
                 </div>
                 <div class="selectorsDisplay">
                     <p class="selector">Press "Generate" above.. </p>
                     <div class="copyBtn">
-                        <img src="./img/image (1).png" alt="copy_icone">
+                        <img src="./img/copy_icone.png" alt="copy_icone">
                     </div>
                 </div>
             </div>
         </div>
+
+        <div id="alertBox" class="hide">
+            <div id="box">
+                <div id="closeAlert">x</div>
+                <p class="titles">ALERT!</p>
+                <p id="alertBoxText">Error! fix it first..</p>
+            </div>
+        </div>
     </div>
 
+    <script src="./popup.js"></script>
 </body>
 </html>

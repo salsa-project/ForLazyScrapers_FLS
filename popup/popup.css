@@ -226,7 +226,7 @@ body {
     flex-direction: column;
     margin-top: 15px;
 }
-#selectors>.generateSelectors{
+#selectors>.updateToken{
     margin: 10px auto 5px;
 }
 #selectorsWrapper{

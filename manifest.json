@@ -1,9 +1,9 @@
 {
     // Comments are accepted in the manifest, even though it is JSON.
     "manifest_version": 3,
-    "name": "HelpScraplease_HSP",
+    "name": "ForLazyScrapers_FLS",
     "description": "Scrap helper that make getting element identifier/route in just 2 steps , assign token and auto-find the token",
-    "version": "0.0.1",
+    "version": "0.3",
     "icons": {
         "16": "logo/logo-16.png",
         "48": "logo/logo-48.png",
@@ -16,10 +16,11 @@
         "activeTab", 
         "scripting", 
         "tabs",
-        "downloads"
+        "downloads",
+        "notifications"
     ],
     "action": {
-        "default_title": "HelpScraplease_HSP",
+        "default_title": "ForLazyScrapers_FLS",
         "default_popup": "popup/popup.html"
     },
     "host_permissions": [
@@ -31,6 +32,6 @@
     },
     "content_scripts": [{
         "js": ["foreground.js"],
-        "matches": ["https://chat.openai.com/*"]
+        "matches": ["<all_urls>"]
     }]
 }

@@ -8,7 +8,7 @@
     box-sizing: border-box;
     padding: 0px;
     margin: 0px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 body {
     width: 18rem;
@@ -208,6 +208,7 @@ body {
     content: "Copied";
     color: var(--third);
     animation: spawn 0.5s ease-in infinite;
+    
 }
 .hide{
     display: none !important;

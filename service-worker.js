@@ -83,28 +83,3 @@ function getTabIdForUrl(urlToMatch) {
   
   // Example: Check for tabs with "https://salsa-project.github.io/Class-Concept/" in the URL
   getTabIdForUrl("https://salsa-project.github.io/Class-Concept/");
-
-  
-
-
-  let data = {
-    "idSelector": null,
-    "classNamesSelector": [
-        {
-            "name": "card",
-            "index": 2,
-            "count": 4,
-            "types": {
-                "query": ".card:nth-of-type(2)"
-            }
-        }
-    ],
-    "tagNameSelector": {
-        "name": "div",
-        "index": 9,
-        "types": {
-            "query": "div:nth-of-type(9)"
-        }
-    },
-    "xpathSelector": "/#cardsContainer/div:nth-child(3)"
-}

@@ -1,101 +1,76 @@
-<div align="center">
-    <img src="https://raw.githubusercontent.com/SimGus/chrome-addon-v3-starter/master/logo/logo-128.png"/>
-    <h1>Chrome Extension v3 Starter</h1>
-    <h3>A minimal template of a Chrome v3 addon</h3>
-</div>
+# For Lazy Scrapers
+<p align="center">
+    <img src="./popup//img/others/pic1.png" alt="drawing" width="200"/>
+    <img src="./popup//img/others/pic2.png" alt="drawing" width="400"/>
+    <img src="./popup//img/others/pic3.png" alt="drawing" width="400"/>
+</p>
+## Overview
 
-This repository contains a minimal Chrome/Chromium extension that uses the newest version of the manifest (v3).
+"For Lazy Scrapers" is a Chrome extension designed to simplify the process of obtaining HTML selectors for web scraping. It aims to streamline the scraping workflow by automating the generation of selectors, eliminating the need for manual inspection and selection.
 
-You can use it as a basis to develop an extension.
-It can also give you more insights about how to turn a v2 extension to v3.
+## Features
 
-In other words, this is a **working, installable v3 extension** example meant for you to **jumpstart** the development of your own extension.
+### 1. Token Generation and Injection
+
+- **Generate Token:** Easily generate a unique token.
+- **Inject Token:** Inject the generated token into the HTML target element.
+
+### 2. Quick Selector Retrieval
+
+- **Get Selectors:** Obtain element ID, classes, and tag selectors with just a few clicks.
+- **Effortless Scraping:** Reduce the regular process of navigating the inspector and searching for elements.
+
+### 3. Visual Enhancements
+
+- **Highlighting/Bordering:** Visually highlight or border the target element for easy identification.
+
+### 4. Easy Switching Between Elements
+
+- **Switch Targets:** Effortlessly switch between target elements during the scraping process.
+
+### 5. Copy To Clipboard
+
+- **One click = One Copy:** Effortlessly copy the chosen selector to clipboard
+## Inspiration
+
+The inspiration behind creating "For Lazy Scrapers" was a desire to make web scraping feel more natural and less cumbersome. By automating the selector generation process, the extension aims to simplify scraping tasks, especially for users who find the traditional approach time-consuming.
+
+## Target Audience
+
+This extension is designed for anyone involved in web scraping. Whether you're a seasoned scraper or a beginner, "For Lazy Scrapers" provides a user-friendly and efficient way to collect HTML selectors.
+
+## Note
+
+**Please Note:** "For Lazy Scrapers" is intended for legitimate and ethical web scraping purposes. Ensure that you comply with the terms of service of the websites you scrape, and refrain from engaging in any illegal or unethical scraping activities.
 
 
-## Installation
-- **Fork** this repo, then **clone your forked repo locally**. If you don't have a github account, you can simply download a zip of the repo and unzip it on your computer.
-- **Open [the extensions page](chrome://extensions)** in your browser: `chrome://extensions`. This link works on any chromium-based browser.
-- If you did not do it already, **toggle the "developer mode"**. This is usually a toggle button at the top right of the extensions page.
-- Click the button **_load unpacked extension_**.
-- In the window that pops up, **select the folder that contains this minimal extension**, then **click _ok_**.
-- **Done!** A new extension called _Chrome Addon v3 Starter_ should have appeared in the list.
+## Future Plans
 
-## Q&A
-> Does this work only on Chrome or on **other web browsers** as well?
+"While Lazy Scrapers" is currently a tool, future updates may transform it into a full-fledged project with additional features, such as:
 
-At the moment, this works on every chromium-based web browser that supports v3 extensions.
-Therefore, you should be able to install this extension on any of the following browsers (as long as they are up-to-date):
-- _Free and open-source browsers_:
-    - Chromium
-    - Brave
-- _Proprietary browsers_:
-    - Chrome
-    - Edge
-    - Vivaldi
-    - Opera
+- Group selectors.
+- A small window displaying current element information.
+- Enhanced selector options like XPath and combined selectors (tag + attribute).
+- Local storage for history and templates for popular websites.
 
-> So it doesn't work on **Firefox** or **Safari**?
+## Technology Stack
 
-No, Firefox uses a different extension format. That being said, it is usually not too hard to port extensions from Chrome to Firefox.
-Read [their porting documentation](https://extensionworkshop.com/documentation/develop/porting-a-google-chrome-extension/) for more information.
+- HTML
+- CSS
+- Vanilla JavaScript
+- Chrome Extension API
 
-Safari uses yet another extension format and porting is usually harder.
-You can find more information [here](https://bartsolutions.github.io/2020/11/20/safari-extension/).
+## Usage
 
-> Does this work on **Chrome for Android/iOS**?
+1. Install the extension in your Chrome browser.
+2. Open a webpage for scraping.
+3. Use the extension's features to generate tokens, retrieve selectors, and enhance the visual experience.
+4. Enjoy a more streamlined and efficient web scraping process!
 
-Chrome for mobile doesn't currently support extensions.
+## License
 
-> I don't need a **popup tool** for my extension! Can I remove it?
+This extension is licensed under the [MIT License](LICENSE).
 
-Yes, simply delete the `popup` folder and remove the `default_popup` property from the manifest.
+---
 
-> I changed some code in the extension, but my **changes aren't taken into account**!
-
-For most of the changes you make, you will need to reload your extension for the changes to be applied.
-To do that, go to the chrome://extensions page and click the reload button of your extension.
-Note that most of the changes you will make to the settings page or the popup don't require reloading the extension.
-
-> Can I follow a **tutorial about a v2 extension** with this?
-
-Most of what you will find in those tutorials still holds with v3.
-
-However, a few things (notably best practices) have changed.
-You should read the [official migration page (v2 to v3)](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/) before following such a tutorial.
-
-> When I make an erroneous change in my service worker, the extension doesn't load! How can I **debug a service worker**?
-
-Using the debugger if your service worker is not loaded is not possible.
-
-However, if you want to test some piece of code before putting it in your service worker, you can:
-- load your extension with a working version of the service worker.
-- click on "service worker" on the page _chrome://extensions_. This will open the console attached to the service worker.
-- paste your code in the console and see if any error is logged.
-
-Note that in this console, you have access to anything your service worker has access to, including its variables, functions and chrome APIs.
-
-> How do I **uninstall** this extension from my browser?
-
-- Go to the [extensions page](chrome://extensions): chrome://extensions.
-  There should be a card with the name of this extension as title.
-  If you don't see such a card, it means the extension is not installed.
-- Simply click the _Delete_ button at the bottom of the card. Click _ok_ if a popup asks you for confirmation. The extension is now uninstalled.
-
-> I want to **push my changes to my own repo**, how do I do this?
-
-- If you forked this repo and cloned your own fork locally, git will push to your fork on your account automatically (i.e. use the command `git push` or `git push origin <your-branch>`).
-
-- If you downloaded a zip or simply cloned this repo locally, do the following:
-    - Create a github account if you don't already have one and install git on your machine.
-    - Create a new (empty) repo on your github and copy its url.
-    - Open a terminal in the folder where the extension is cloned.
-    - Run the command `git init`, then `git commit -am "Initial commit"`
-    - Run the command `git remote add origin <url-of-your-repo>`
-    - Run `git push -u origin master`. The extension code is now on your repo, on brnach _master_.
-    - If you want, you can make the _master_ branch the default one and delete the _main_ branch in the settings of your repo.
-
-## External resources
-- [Official feature summary for manifest v3](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-overview/)
-- [Migrating from v2 to v3](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/) + [very useful checklist once you think you are done](https://developer.chrome.com/docs/extensions/mv3/mv3-migration-checklist/)
-- [Excellent write-ups of a migration](https://github.com/kentbrew/learning-manifest-v3)
-- [Another example of a v3 extension (older code)](https://gist.github.com/dotproto/3a328d6b187621b445499ba503599dc0)
+**Happy Scraping!**

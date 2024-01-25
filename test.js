@@ -1,7 +1,16 @@
 let data = {
-    "idSelector": [],
+    "idSelector": {
+        "type": "id",
+        "name": "showcase",
+        "index": 0,
+        "count": 1,
+        "types": {
+            "query": "#showcase"
+        }
+    },
     "classNamesSelector": [
         {
+            "type": "class",
             "name": "card",
             "index": 2,
             "count": 4,
@@ -10,45 +19,67 @@ let data = {
             }
         },
         {
-            "name": "card",
+            "type": "class",
+            "name": "gggg",
             "index": 2,
             "count": 4,
             "types": {
                 "query": ".card:nth-of-type(2)"
             }
-        }
-    ],
-    "tagNameSelector": [
+        },
         {
-            "name": "div",
-            "index": 9,
-            'count': 0,
+            "type": "class",
+            "name": "kkkk",
+            "index": 2,
+            "count": 4,
             "types": {
-                "query": "div:nth-of-type(9)"
+                "query": ".card:nth-of-type(2)"
             }
-        }
+        },
     ],
+    "tagNameSelector": {
+        "type": "tag",
+        "name": "div",
+        "index": 9,
+        "count": 0,
+        "types": {
+            "query": "div:nth-of-type(9)"
+        }
+    },
     "xpathSelector": "/#cardsContainer/div:nth-child(3)"
 }
 
-let arr1 = ["idSelector", "classNamesSelector", "tagNameSelector", "xpathSelector"]
-let arr2 = ["name", "index", "count"]
-let arr3 = [];
-for (let i = 0; i < arr1.length; i++) {
-    const selector = data[arr1[i]];
-    
-    if(Array.isArray(selector)){
 
-        for (let j = 0; j < selector.length; j++) {
-            const currentItem = selector[j];
-
-            for (let k = 0; k < arr2.length; k++) {
-                let key = arr2[k]
-                arr3.push(currentItem[key])
-            }
-                        
-        }
-    }
-    
+function htmlTagTemplate(obj){
+    return `
+        <div class="tag">
+        <p class="tagType tagText">${obj.type}</p>
+        <p class="tagValue tagText">${obj.name}</p>
+        <p class="tagCount tagText">${obj.count}</p>
+        </div>
+    `
 }
-console.log(arr3)
+
+selectorTagsHTML = "";
+let idData = data.idSelector;
+let classesData = data.classNamesSelector;
+let tagData = data.tagNameSelector;
+
+
+// generate ID html tags
+if(idData){
+    selectorTagsHTML+= htmlTagTemplate(idData)
+}
+// generate CLASS html tags
+if (Array.isArray(classesData)) {
+    classesData.forEach(obj => {
+        selectorTagsHTML+= htmlTagTemplate(obj)
+    });
+}
+// generate TAG html tags
+selectorTagsHTML+= htmlTagTemplate(tagData)
+
+
+
+
+console.log(selectorTagsHTML)

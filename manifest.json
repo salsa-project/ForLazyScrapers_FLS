@@ -3,7 +3,7 @@
     "manifest_version": 3,
     "name": "ForLazyScrapers_FLS",
     "description": "Scrap helper that make getting element identifier/route in just 2 steps , assign token and auto-find the token",
-    "version": "0.3",
+    "version": "1.0.0",
     "icons": {
         "16": "logo/logo-16.png",
         "48": "logo/logo-48.png",
@@ -24,8 +24,7 @@
         "default_popup": "popup/popup.html"
     },
     "host_permissions": [
-        "https://chat.openai.com/*",
-        "https://bard.google.com/*"
+        "https://www.google.com/*"
     ],
     "background": {
         "service_worker": "service-worker.js"

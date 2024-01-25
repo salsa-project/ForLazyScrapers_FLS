@@ -16,7 +16,7 @@ function getAllSelectorsForToken(token) {
   }
   const selectors = {
     // ID
-    idSelector: matchingElement.id && { name: matchingElement.id, type: 'ID', index: 0, count: 1, types: { query: `#${matchingElement.id}` } },
+    idSelector: matchingElement.id ? { name: matchingElement.id, type: 'id', index: 0, count: 1, types: { query: `#${matchingElement.id}` } } : null,
     // CLASSES
     classNamesSelector: getClassNamesSelector(matchingElement),
     // TAG
@@ -37,7 +37,7 @@ function getClassNamesSelector(element) {
     const elementsWithSameClass = document.querySelectorAll(`.${className}`);
     const index = Array.from(elementsWithSameClass).indexOf(element);
     return {
-      type: 'Class',
+      type: 'class',
       name: className,
       index: index,
       count: elementsWithSameClass.length,
@@ -55,7 +55,7 @@ function getTagNameSelector(element) {
   const elementsWithSameTag = document.querySelectorAll(`${tagName}`);
   const index = Array.from(elementsWithSameTag).indexOf(element);
   return {
-    type: 'Tag',
+    type: 'tag',
     name: tagName,
     index: index,
     count: 0, //todo: fix tag count
@@ -105,7 +105,7 @@ function getElementByXPath(xpath) {
 
 /***********************************
 
-              EXTRA
+              ALERT BOX
 
 ***********************************/
 // Create a <style> element
@@ -129,6 +129,7 @@ styleElement.textContent = `
     height: 100%;
     width: 100%;
     background-color: rgba(67,118,108,.5);
+    z-index: 9999999;
   }
   #closeAlert{
     position: absolute;
@@ -312,12 +313,13 @@ document.head.appendChild(styleElement);
 // Create a <div> for the following text
 const followText = document.createElement('div');
 followText.id = 'followText';
+followText.classList.add('hide') // todo : swith on and off follow mouse box
 document.body.appendChild(followText);
 
 // Create a <div> for the following text
 let alertBox = `
   
-<div id="alertBox" class="">
+<div id="alertBox" class="hide">
   <div id="box">
       <div id="closeAlert">x</div>
       <p class="titles">SELECTOR!</p>
@@ -385,15 +387,28 @@ function handleMouseMove(event) {
 
 
 const alertBoxContainer = document.getElementById('alertBox');
+const alert = document.getElementById('box');
 const closeAlert = document.getElementById('closeAlert');
 const copyBtn = document.getElementsByClassName('copyBtn')[0];
 const copiedPopup = document.getElementsByClassName('copied')[0];
+const queryText = document.getElementById('token');
+
+alertBoxContainer.addEventListener('click', function(e){
+  if(alert.contains(e.target)){
+    //inside
+  }else{
+    //outside
+    alertBoxContainer.classList.toggle('hide');
+  }
+})
 
 closeAlert.addEventListener('click', function () {
   alertBoxContainer.classList.toggle('hide');
+  queryText.innerText = 'Pick One From Above..'
 })
 
 copyBtn.addEventListener('click', function () {
+  copyToClipboard(queryText.innerText)
   copiedPopup.classList.toggle('hide');
   setTimeout(() => {
     copiedPopup.classList.toggle('hide');
@@ -433,7 +448,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       // generate 
       let generatedTags = generateTagsHtml(allSelectors);
       const elmTagsContainer = document.getElementById('elmTags');
-      elmTagsContainer.innerHTML= generatedTags;
+      elmTagsContainer.innerHTML = generatedTags;
       sendResponse('Handling Selectors..')
       break;
 
@@ -457,12 +472,14 @@ function injectTokenFn(token) {
     document.addEventListener('click', (event) => {
       // prevent submit form or changing page
       event.preventDefault();
-      // clear dom from previouse token
-      clearElementsWithPreviousToken(token)
-      // inject the token
-      const clickedElement = event.target;
-      clickedElement.setAttribute('data-fls', token);
-      clickedElement.style = 'border: 2px dotted blue;';
+      if (!event.target.closest('#alertBox')) {
+        // clear dom from previouse token
+        clearElementsWithPreviousToken(token)
+        // inject the token
+        const clickedElement = event.target;
+        clickedElement.setAttribute('data-fls', token);
+        clickedElement.style = 'border: 2px dotted blue;';
+      }
     });
   }
 }
@@ -483,38 +500,55 @@ function clearElementsWithPreviousToken(token) {
 //todo: fix tags generator
 /* GENERATE TAGS HTML */
 function generateTagsHtml(data) {
-  let selectorTags = '';
-  /* Generate Selectors */
-  let arr1 = ["idSelector", "classNamesSelector", "tagNameSelector", "xpathSelector"]
-  let arr2 = ["type", "name", "index"]
-  let arr3 = [];
-
-  for (let i = 0; i < arr1.length; i++) {
-    const selector = data[arr1[i]];
-
-    if (Array.isArray(selector)) {
-      for (let j = 0; j < selector.length; j++) {
-        const currentItem = selector[j];
-
-        for (let k = 0; k < arr2.length; k++) {
-          let key = arr2[k]
-          arr3.push(currentItem[key])
-      }
-
-        
-      }
+  
+  // tags html generator
+  function htmlTagTemplate(obj) {
+    let type = {
+      "id":    'getElementById',
+      "class": 'getElementsByClassName',
+      'tag':   'getElementsByTagName'
     }
-  }
-  console.log(arr3)
-  for (let l = 0; l < arr3.length; l+=3) {
-    selectorTags += `
-          <div class="tag">
-            <p class="tagType tagText">${arr3[l+0]}</p>
-            <p class="tagValue tagText">${arr3[l+1]}</p>
-            <p class="tagCount tagText">${arr3[l+2]}</p>
-          </div>
+    let queryGenerator = `document.${type[obj.type]}('${obj.name}')${(obj.type == 'id')?'':'['+obj.index+']'}`
+    return `
+        <div class="tag" data-query="${queryGenerator}" onclick="document.getElementById('token').innerText=event.target.parentElement.getAttribute('data-query')">
+        <p class="tagType tagText">${obj.type}</p>
+        <p class="tagValue tagText">${obj.name}</p>
+        <p class="tagCount tagText">${obj.count}</p>
+        </div>
         `
   }
-  console.log(selectorTags)
-  return selectorTags
+  // HTML tags result
+  selectorTagsHTML = "";
+  // data
+  let idData = data?.idSelector;
+  let classesData = data?.classNamesSelector;
+  let tagData = data?.tagNameSelector;
+  // generate ID html tags
+  if (idData) {
+    selectorTagsHTML += htmlTagTemplate(idData)
+  }
+  // generate CLASS html tags
+  if (Array.isArray(classesData)) {
+    classesData.forEach(obj => {
+      selectorTagsHTML += htmlTagTemplate(obj)
+    });
+  }
+  // generate TAG html tags
+  selectorTagsHTML += htmlTagTemplate(tagData)
+
+  return selectorTagsHTML;
 }
+
+/* Copy To Clipboard */
+function copyToClipboard(value) {
+    const textarea = document.createElement('textarea');
+    textarea.value = value;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+}
+
+
+
+
